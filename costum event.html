@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Event World</title>
+        <style>
+            .buttons{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border: 1px solid black;
+                border-width:2px;
+                padding : 15px;
+            }
+            .button{
+                margin : 8px;
+                height : 40px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="buttons" align="center">
+            <h3 id="caption">Silakan tekan salah satu tombol di bawah...</h3>
+            <button class="button" id="tombol">Tombol Custom Event</button>
+        </div>
+        
+        <script>
+            const changeCaption = new Event("changeCaption"); // buat sebuah event berdasarkan buatan kita     
+
+
+            window.addEventListener('load', function (){ // ngejalin abis ngeload windows 
+            const tombol = document.getElementById("tombol"); // manggil elemen tombol 
+            tombol.addEventListener("changeCaption", customEventHandler); // event listener 
+                                                                        //pada button melalui method addEventListener() ketika tombol tersebut ditekan
+            tombol.addEventListener("click", function(){
+                tombol.dispatchEvent(changeCaption); //dispatchEvent() adalah langkah terakhir 
+                //dari proses create-init-dispatch, yang digunakan untuk mengirimkan event ke dalam model event implementasi.
+        });
+});
+        function customEventHandler(ev){
+            console.log("Event "+ev.type+" telah dijalankan"); // console log untuk di inspect elemen 
+            const caption = document.getElementById("caption"); // die manggil caption terus caption nya itu diubah deng yg bawah 
+            caption.innerText = "Anda telah membangkitkan custom event"; // ini fungsi setelah dia mengklik tombol 
+}
+ // jadi semua ini berfungsi untuk ngerubah kata kata di caption
+        </script>
+    </body>
+</html>
